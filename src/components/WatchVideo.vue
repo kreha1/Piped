@@ -83,6 +83,13 @@
             </a>
             <!-- eslint-disable-next-line vue/no-v-html -->
             <p v-show="showDesc" :style="[{ colour: foregroundColor }]" v-html="purifyHTML(video.description)"></p>
+            <div v-for="chapter in video.chapters" :key="chapter.start">
+                <button class="uk-button" @click="navigate(chapter.start)">
+                    <h6>{{ chapter.title }}</h6>
+                    <img :src="chapter.image" :alt="chapter.title" />
+                </button>
+                <hr />
+            </div>
             <div v-if="showDesc && sponsors && sponsors.segments">
                 {{ $t("video.sponsor_segments") }}: {{ sponsors.segments.length }}
             </div>
@@ -343,6 +350,9 @@ export default {
         },
         getVideoId() {
             return this.$route.query.v || this.$route.params.v;
+        },
+        navigate(time) {
+            this.$refs.videoPlayer.seek(time);
         },
     },
 };

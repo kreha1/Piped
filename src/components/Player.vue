@@ -482,6 +482,11 @@ export default {
                 }
             };
         },
+        seek(time) {
+            if (this.$refs.videoEl) {
+                this.$refs.videoEl.currentTime = time;
+            }
+        },
         destroy() {
             if (this.$ui) {
                 this.$ui.destroy();
